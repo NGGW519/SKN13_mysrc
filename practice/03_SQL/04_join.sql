@@ -16,7 +16,7 @@
     - Cross Join
         - 두 테이블의 곱집합을 반환한다. 
 ******************************************************************************** */        
-use hr_join;
+
 
 
 /* ****************************************
@@ -25,21 +25,42 @@ FROM  테이블a INNER JOIN 테이블b ON 조인조건
 
 - inner는 생략 할 수 있다.
 **************************************** */
--- 직원의 ID(emp.emp_id), 이름(emp.emp_name), 입사년도(emp.hire_date), 소속부서이름(dept.dept_name)을 조회
 
+select * from dept;
+
+-- 직원의 ID(emp.emp_id), 이름(emp.emp_name), 입사년도(emp.hire_date), 소속부서이름(dept.dept_name)을 조회
+select e.emp_id,
+	   e.emp_name,
+	   e.hire_date,
+       d.dept_name
+from emp e inner join dept d on e.dept_name = d.dept_name;
 
 -- 커미션을(emp.comm_pct) 받는 직원들의 직원_ID(emp.emp_id), 이름(emp.emp_name),
--- 급여(emp.salary), 커미션비율(emp.comm_pct), 소속부서이름(dept.dept_name), 부서위치(dept.loc)를 조회. 직원_ID의 내림차순으로 정렬.
-
+-- 급여(emp.salary), 커미션비율(emp.comm_pct), 소속부서이름(dept.dept_name), 부서위치(dept.loc)를 조회. 
+-- 직원_ID의 내림차순으로 정렬.
+select * from emp;
+select e.emp_id, e.emp_name, e.salary, e.comm_pct, d.dept_name, d.loc
+from emp e join dept d on e.dept_name = d.dept_name
+where e.comm_pct is not null
+order by 1 desc;
 
 -- 직원의 ID(emp.emp_id)가 100인 직원의 직원_ID(emp.emp_id), 이름(emp.emp_name), 입사년도(emp.hire_date), 소속부서이름(dept.dept_name)을 조회.
-
+select e.emp_id, e.emp_id, e.emp_name, e.hire_date, d.dept_name
+from emp e join dept d on e.dept_name = d.dept_name
+where e.emp_id = 100;
 
 -- 직원_ID(emp.emp_id), 이름(emp.emp_name), 급여(emp.salary), 담당업무명(job.job_title), 소속부서이름(dept.dept_name)을 조회
-
+select e.emp_id, e.emp_name, e.salary, j.job_title, d.dept_name
+from emp e join job j on e.job = j.job_id 
+           join dept d on e.dept_name = d.dept_name
+order by 1;
 
 --  직원 ID 가 200 인 직원의 직원_ID(emp.emp_id), 이름(emp.emp_name), 급여(emp.salary), 담당업무명(job.job_title), 소속부서이름(dept.dept_name)을 조회              
-
+select e.emp_id, e.emp_name, e.salary, j.job_title, d.dept_name
+from emp e join job j on e.job = j.job_id 
+           join dept d on e.dept_name = d.dept_name;
+-- where e.emp_id = 200;
+select * from emp;
 
 -- 부서_ID(dept.dept_id)가 30인 부서의 이름(dept.dept_name), 위치(dept.loc), 그 부서에 소속된 직원의 이름(emp.emp_name)을 조회.
 
@@ -101,49 +122,17 @@ from 테이블a [LEFT | RIGHT] OUTER JOIN 테이블b ON 조인조건
 
 
 -- 부서 ID(dept.dept_id), 부서이름(dept.dept_name)과 그 부서에 속한 직원들의 수를 조회. 직원이 없는 부서는 0이 나오도록 조회하고 직원수가 많은 부서 순서로 조회.
-select d.dept_id, d.dept_name,
-	   count(*) as "직원수"
-from dept d left join emp e on d.dept_id = e.dept_id
-group by d.dept_id, d.dept_name
-order by 3 desc;
-
--- 직원수가 1인부분을 보면, 직원이 null이다. null인데 왜 1이나오냐면, *로 count 했기 때문이다.
--- 따라서 count(emp_id)로 해야한다. count(*)는 행수를 카운트. 그래서 직원이 없는 부서도 1이 나오는것
--- emp_id를 기준으로 세야함!
-
-select d.dept_id, d.dept_name,
-	   count(emp_id) as "직원수"
-from dept d left join emp e on d.dept_id = e.dept_id
-group by d.dept_id, d.dept_name
-order by 3 desc;
 
 
 
 -- EMP 테이블에서 부서_ID(emp.dept_id)가 90 인 모든 직원들의 id(emp.emp_id), 이름(emp.emp_name), 상사이름(emp.emp_name), 입사일(emp.hire_date)을 조회. 
 -- 입사일은 yyyy/mm/dd 형식으로 출력
-select e.emp_id,
-	   e.emp_name,
-	   m.emp_name as "상사이름",
-	   date_format(e.hire_date, '%Y/%m/%d') as "hire_date"
-from emp e left join emp m on e.mgr_id = m.emp_id 
-where e.dept_id = 90;
+
 
 -- 2003년~2005년 사이에 입사한 모든 직원의 id(emp.emp_id), 이름(emp.emp_name), 업무명(job.job_title), 급여(emp.salary), 입사일(emp.hire_date),
 -- 상사이름(emp.emp_name), 상사의입사일(emp.hire_date), 소속부서이름(dept.dept_name), 부서위치(dept.loc)를 조회.
 
-select e.emp_id,
-	   e.emp_name,
-	   j.job_title,
-       e.salary,
-       e.hire_date,
-       m.emp_name as "상사이름",
-       m.hire_date as "상사입사일",
-       d.dept_name,
-       d.loc
-from emp e left join job j on e.job_id = j.job_id
-		   left join emp m on e.mgr_id = m.emp_id
-           left join dept d on e.dept_id = d.dept_id
-where year(e.hire_date) between 2003 and 2005;
+
 
 
 
