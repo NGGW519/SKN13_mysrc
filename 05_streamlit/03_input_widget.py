@@ -11,6 +11,7 @@ st.set_page_config(page_title="✏️Input Widget✏️", layout="wide")
 
 ################################################################
 #  값 입력 받기
+#  입력 받고 값이 바뀌면, event가 발생하는 것이 되어, 다시 당해 파일문서를 처음부터 다시 읽어와서 최신화 한다.
 ################################################################
 st.subheader("text 입력")
 name_value = st.text_input("이름")
@@ -19,6 +20,7 @@ st.write("이름: " + name_value)
 st.subheader("여러줄 텍스트 입력")
 info = st.text_area("정보", height=200)  #height 단위: pixcel
 st.write(info.replace("\n", "<br>"), unsafe_allow_html=True)
+# IDE에서 엔터를 위해 \n을 적어 넣어도, <br>이 없는 이상 줄바꿈이 안됨.
 
 st.subheader("Number Input")
 num = st.number_input("값")
@@ -65,7 +67,7 @@ st.subheader("Select Box")
 option = st.selectbox(
     "지역을 선택하세요",
     ("서울", "인천", "부산", "광주"),
-    # index=None
+    index=None
 )
 st.write("**선택한 지역**:", option)
 
@@ -74,9 +76,9 @@ st.write("**선택한 지역**:", option)
 st.subheader("Checkbox 버튼")
 bool_value = st.checkbox("정보를 수신하겠습니까?") # check: True, check 해제: False 반환
 if bool_value:
-    st.write("**수신 선택**")
+    st.write("**수신 선택**") # 체크가 되어있으면 true
 else:
-    st.write("**수신 안함 선택**")
+    st.write("**수신 안함 선택**") # cpzm gowpgkaus false
 
 
 

@@ -1,6 +1,16 @@
 from re import U
 import streamlit as st
 
+
+# 함수 등을 이용하지 않더라도, 그냥 변수등의 값들을 그냥 넣어도 streamlit이 알아서 현출해준다
+# 값을 적어두면 그냥 그 자리에 값 현출
+
+a = 30
+a
+
+#그냥 이렇게 쓰고 streamlit 들어가서 새로고침하면 맨위에 30뜨는걸 볼 수 있음
+
+
 """
 # Streamlit 개요
 - Streamlit은 데이터 분석 결과, 머신러닝 모델 결과등을 빠르게 웹 애플리케이션으로 만들 수 있게 하는 파이썬 라이브러리 이다.
@@ -10,8 +20,8 @@ import streamlit as st
 - Python 스크립트만으로 웹 앱을 만들 수 있습니다
     - Streamlit으로 작성된 코드가 실행 시에는 FastAPI(파이썬 웹 프레임워크), React(Javascript Frontend Framework)로 변환되어 실행된다.
 - 데이터 시각화 지원: matplotlib, plotly, altair 등 시각화 라이브러리로 작성한 그래프를 화면에 쉽게 출력할 수있다.
-- Streamlit homepage: https://streamlit.io/
-- Streamlit documentation: https://docs.streamlit.io/
+- Streamlit homepage: https://streamlit.io/ 
+- Streamlit documentation: https://docs.streamlit.io/ >> docs에 들어가서 설명서들을 찾아볼 수 있다. Documentation!
 
 ## streamlit app 구현
 - 설치
@@ -20,8 +30,6 @@ import streamlit as st
     - 보통 시작 문서를 구현한 코드는 `app.py` 로 저장한다. 
     - 실행 `streamlit run 실행코드`
 """
-
-
 
 
 
@@ -42,6 +50,7 @@ st.subheader('이것은 subheader 입니다 :100:')
 # 일반 텍스트 입력
 st.text('일반 텍스트입니다. 👌👌')
 st.text(10)
+st.text(True)
 
 # 캡션  입력
 st.caption('이것은 캡션입니다.:rainbow:')
@@ -68,6 +77,7 @@ st.markdown('*Streamlit*은 **마크다운 문법을 지원**합니다.')
 ## :컬러코드[출력할 내용] ex) :blue[안녕하세요.]
 st.markdown("컬러코드를 이용해서 텍스트 색을 지정합니다. :green[초록색], **:blue[파란색]**, *:red[빨강색입니다.]*")
 st.markdown("Latax를 이용해 출력할 수식은 \$ \$ 로 감싸줍니다. $\cfrac{1}{2}$, :green[$\sqrt{x^2+y^2}=1$]")
+#  $\cfrac{1}{2} => 2분의 1 분수를 말하는 것것
 
 ###### LaTex 수식 출력 함수. $ $ 로 감쌀 필요없다.
 st.latex('\sqrt{x^2+y^2}=1')

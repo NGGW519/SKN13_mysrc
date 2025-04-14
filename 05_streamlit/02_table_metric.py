@@ -28,6 +28,7 @@ st.dataframe(df)
 # st.dataframe(df, width=400)
 
 # DataFrame 값 변경가능하게 출력
+# streamlit 상에서 값을 바꾸어도 터미널 상에 바뀐대로 표현이 된다.
 ## 값이 변경될 때마다 변경된 DataFrame을 반환한다.
 st.subheader('st.data_editor()')
 change_df = st.data_editor(df)
@@ -47,8 +48,8 @@ st.divider()
 st.header('값의 등락 출력 - st.metric()')
 
 st.metric(
-    label=":blue[온도 ]",   # header/title. markdown, 이모지 shortcode, latex($, $$ 로 감싼다.), color text지원.
+    label=":blue[온도]",   # header/title. markdown, 이모지 shortcode, latex($, $$ 로 감싼다.), color text지원.
     value="10°C",           # 출력할 값
     delta="1.2°C"           # metric의 등락 크기값(옵션). `+` 로 시작하거나 생략하면 오름, `-` 로 시작하면 내림.
 )
-st.metric(label="삼성전자**", value="60,600원", delta="-700원 (-1.14%)")
+st.metric(label="**삼성전자**", value="60,600원", delta="-700원 (-1.14%)")
