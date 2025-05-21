@@ -176,3 +176,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 09_딥러닝_기본/images*
+
+# petition_corpus
+10_NLP_전처리/data/petitions_corpus.txt
+
