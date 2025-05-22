@@ -177,6 +177,9 @@ cython_debug/
 .pypirc
 09_딥러닝_기본/images*
 
-# petition_corpus
+# large file
 10_NLP_전처리/data/petitions_corpus.txt
+11_NLP_Embedding/ko_new*
+11_NLP_Embedding/ko_new.zip
+
 
